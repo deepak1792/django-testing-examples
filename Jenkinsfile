@@ -17,8 +17,8 @@ pipeline {
            
             steps{
                 withEnv(["HOME=${env.WORKSPACE}"]){
-                sh 'python3 -m pip install django==1.11 --user'
-                sh 'python3 -m pip install -r testing-requirements.txt --user'
+                sh 'python3 -m pip3 install django==1.11 --user'
+                sh 'python3 -m pip3 install -r testing-requirements.txt --user'
                 }
               }
             }
@@ -29,7 +29,6 @@ pipeline {
            
             steps{
                 withEnv(["HOME=${env.WORKSPACE}"]){ 
-                sh 'python3 -m pip install pysqlite --user'
                 sh 'python3 manage.py makemigrations && python3 manage.py migrate'
                 }
                  }

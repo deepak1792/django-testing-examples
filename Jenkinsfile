@@ -32,6 +32,7 @@ pipeline {
                 }
                  }
             }
+      
         
         stage('Test environment') {
             steps {
@@ -51,15 +52,6 @@ pipeline {
                 {
                 sh 'python3 manage.py test'
                 sh 'python3 -Wall manage.py test'
-                }
-                }
-            }   
-        stage ('Code Coverage') {
-
-            steps {
-                withEnv(["HOME=${env.WORKSPACE}"])
-                {
-                sh 'pytest'
                 }
                 }
             }   

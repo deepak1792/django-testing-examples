@@ -50,6 +50,7 @@ pipeline {
                 withEnv(["HOME=${env.WORKSPACE}"])
                 {
                 sh 'python3 manage.py test'
+                sh 'python3 -Wall manage.py test'
                 }
                 }
             }   

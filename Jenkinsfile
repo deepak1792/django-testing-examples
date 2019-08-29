@@ -28,7 +28,8 @@ pipeline {
         stage ('Migrate database') {
            
             steps{
-                withEnv(["HOME=${env.WORKSPACE}"]){
+                withEnv(["HOME=${env.WORKSPACE}"]){ 
+                sh 'python3 -m pip install pysqlite --user'
                 sh 'python3 manage.py makemigrations && python3 manage.py migrate'
                 }
                  }

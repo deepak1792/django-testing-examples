@@ -55,15 +55,5 @@ pipeline {
                 }
                 }
             }
-        stage ('TestA') {
-
-            steps {
-                withEnv(["HOME=${env.WORKSPACE}"])
-                {
-                sh 'pytest --cov=. --cov-report=html'
-                sh 'chromium htmlcov/index.html'
-                }
-                }
-            }   
     }
 }

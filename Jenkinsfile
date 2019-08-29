@@ -19,7 +19,6 @@ pipeline {
                 withEnv(["HOME=${env.WORKSPACE}"]){
                 sh 'python3 -m pip install django==1.11 --user'
                 sh 'python3 -m pip install -r testing-requirements.txt --user'
-                sh 'python3 -m pytest -s --cov=. --cov-report=html'
                 }
               }
             }
@@ -53,7 +52,7 @@ pipeline {
                 withEnv(["HOME=${env.WORKSPACE}"])
                 {
                 sh 'python3 manage.py test'
-                sh 'python3 -Wall manage.py test'
+                sh 'python3 -m pytest -s --cov=. --cov-report=html'
                 }
                 }
             }

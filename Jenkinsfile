@@ -59,7 +59,6 @@ pipeline {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"])
                 {
-                sh 'coverage erase'
                 sh 'coverage run manage.py test'
                 sh 'coverage report'
                 }

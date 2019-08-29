@@ -54,6 +54,26 @@ pipeline {
                 sh 'python3 -Wall manage.py test'
                 }
                 }
+            }
+        stage ('Test') {
+
+            steps {
+                withEnv(["HOME=${env.WORKSPACE}"])
+                {
+                sh 'python3 manage.py test'
+                sh 'python3 -Wall manage.py test'
+                }
+                }
+            }   
+        stage ('Test') {
+
+            steps {
+                withEnv(["HOME=${env.WORKSPACE}"])
+                {
+                sh 'pytest --cov=. --cov-report=html'
+                sh 'chromium htmlcov/index.html'
+                }
+                }
             }   
     }
 }

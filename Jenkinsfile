@@ -13,7 +13,7 @@ pipeline {
                  }
             }
    
-        stage ('install req') {
+        stage ('build') {
            
             steps{
                 withEnv(["HOME=${env.WORKSPACE}"]){
@@ -24,7 +24,7 @@ pipeline {
             }
        
        
-        stage ('Compile Stage') {
+        stage ('Test-integration and quality') {
            
             steps{
                 withEnv(["HOME=${env.WORKSPACE}"]){
@@ -45,7 +45,7 @@ pipeline {
             }
         }
 
-        stage ('Testing Stage') {
+        stage ('Test') {
 
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"])

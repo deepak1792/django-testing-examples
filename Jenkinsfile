@@ -59,8 +59,7 @@ pipeline {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"])
                 {
-                sh 'coverage run manage.py test'
-                sh 'coverage report'
+                sh 'pytest'
                 }
                 }
             }   

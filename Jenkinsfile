@@ -19,6 +19,7 @@ pipeline {
                 withEnv(["HOME=${env.WORKSPACE}"]){
                 sh 'python3 -m pip install django==1.11 --user'
                 sh 'python3 -m pip install -r testing-requirements.txt --user'
+                sh 'python3 -m pip install pysqlite2 --user'
                 }
               }
             }

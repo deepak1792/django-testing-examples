@@ -17,8 +17,8 @@ pipeline {
            
             steps{
                 withEnv(["HOME=${env.WORKSPACE}"]){
-                sh 'python -m pip install django==1.11 --user'
-                sh 'python -m pip install -r testing-requirements.txt --user'
+                sh 'python3 -m pip install django==1.11 --user'
+                sh 'python3 -m pip install -r testing-requirements.txt --user'
                 }
               }
             }
@@ -29,7 +29,7 @@ pipeline {
            
             steps{
                 withEnv(["HOME=${env.WORKSPACE}"]){ 
-                sh 'python manage.py makemigrations && python manage.py migrate'
+                sh 'python3 manage.py makemigrations && python manage.py migrate'
                 }
                  }
             }
@@ -39,9 +39,9 @@ pipeline {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"])
                 {
-                     sh 'pip list'
-                     sh 'which pip'
-                     sh 'which python'
+                     sh 'pip3 list'
+                     sh 'which pip3'
+                     sh 'which python3'
                 }
             }
         }
@@ -51,8 +51,8 @@ pipeline {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"])
                 {
-                sh 'python manage.py test'
-                sh 'python -m pytest -s --cov=. --cov-report=html'
+                sh 'python3 manage.py test'
+                sh 'python3 -m pytest -s --cov=. --cov-report=html'
                 }
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/django_another/htmlcov', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
                 }

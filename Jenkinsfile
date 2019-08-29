@@ -13,7 +13,7 @@ pipeline {
                  }
             }
    
-        stage ('build') {
+        stage ('install requirements') {
            
             steps{
                 withEnv(["HOME=${env.WORKSPACE}"]){
@@ -25,7 +25,7 @@ pipeline {
        
         
        
-        stage ('Test-integration and quality') {
+        stage ('migrate  database') {
            
             steps{
                 withEnv(["HOME=${env.WORKSPACE}"]){

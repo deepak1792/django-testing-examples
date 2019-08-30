@@ -64,8 +64,7 @@ pipeline {
                         try{
                             withEnv(["HOME=${env.WORKSPACE}"])
                             {
-                                sh 'ls'
-                                sh 'pylint manage.py'
+                                sh 'find . -iname "*.py" | xargs pylint'
                             }
                         }catch (err) {
                             echo err.getMessage()

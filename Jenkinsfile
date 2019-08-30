@@ -62,7 +62,7 @@ pipeline {
                 withEnv(["HOME=${env.WORKSPACE}"])
                 {
                 sh 'pylint manage.py'
-                sh 'cd django_testing_examples/ && pylint settings.py && pylint test_settings.py'
+                sh 'ls'
                 }
             }
         }

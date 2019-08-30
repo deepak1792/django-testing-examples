@@ -67,8 +67,9 @@ pipeline {
                                 sh 'ls'
                                 sh 'pylint manage.py'
                             }
-                        }catch (Exception e) {
-                            sh 'Handle the exception!'
+                        }catch (err) {
+                            echo err.getMessage()
+                            echo "Error detected, but we will continue."
                         }
                     }
                 }

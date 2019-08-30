@@ -59,7 +59,6 @@ pipeline {
                 }
             }
         stage('code quality') {
-            try{
                 steps {
                 withEnv(["HOME=${env.WORKSPACE}"])
                 {
@@ -67,10 +66,6 @@ pipeline {
                         sh 'pylint manage.py'
                 }
                 }
-            }
-            catch(exc){
-                echo 'Something failed!'
-            }
         }
     }
 }

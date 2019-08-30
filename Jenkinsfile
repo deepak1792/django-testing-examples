@@ -56,5 +56,14 @@ pipeline {
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/django_pipe/htmlcov', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
                 }
             }
+        stage('code quality') {
+            steps {
+                withEnv(["HOME=${env.WORKSPACE}"])
+                {
+                sh 'pylint manage.py'
+                sh 'cd cd django_testing_examples/ && pylint settings.py && pylint test_settings.py'
+                }
+            }
+        }
     }
 }

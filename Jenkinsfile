@@ -64,6 +64,8 @@ pipeline {
                         try{
                             withEnv(["HOME=${env.WORKSPACE}"])
                             {
+                                sh'ls'
+                                sh'cd django-testing-examples '
                                 sh 'find . -iname "*.py" | xargs pylint'
                             }
                         }catch (err) {

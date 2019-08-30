@@ -60,11 +60,17 @@ pipeline {
             }
         stage('code quality') {
                 steps {
-                withEnv(["HOME=${env.WORKSPACE}"])
-                {
-                        sh 'ls'
-                        sh 'pylint manage.py'
-                }
+                    script{
+                        try{
+                            withEnv(["HOME=${env.WORKSPACE}"])
+                            {
+                                sh 'ls'
+                                sh 'pylint manage.py'
+                            }
+                        }catch (Exception e) {
+                            sh 'Handle the exception!'
+                        }
+                    }
                 }
         }
     }

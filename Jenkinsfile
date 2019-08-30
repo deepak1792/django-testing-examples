@@ -56,6 +56,5 @@ pipeline {
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/django_line/htmlcov', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
                 }
             }
-}
     }
 }

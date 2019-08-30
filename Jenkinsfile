@@ -59,18 +59,18 @@ pipeline {
                 }
             }
         stage('code quality') {
+            try{
                 steps {
                 withEnv(["HOME=${env.WORKSPACE}"])
                 {
-                    try{
                         sh 'ls'
                         sh 'pylint manage.py'
-                    }catch (Exception e) {
-                        currentBuild.result = "FAILURE"
-                        err = e
-                    }
                 }
                 }
+            }
+            catch(exc){
+                echo 'Something failed!'
+            }
         }
     }
 }

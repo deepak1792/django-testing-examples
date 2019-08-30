@@ -1,5 +1,5 @@
 pipeline {
-    agent { docker { image 'python:3.6' } }
+    agent any
 
     stages {
        
@@ -9,7 +9,6 @@ pipeline {
                 git branch: 'master',
                 credentialsId: '42018f3f-fd55-4d0a-8b73-7ab54bdfeec5',
                 url: 'https://github.com/deepak1792/django-testing-examples.git'
-                sh "ls -lat"
                  }
             }
    
@@ -17,8 +16,8 @@ pipeline {
            
             steps{
                 withEnv(["HOME=${env.WORKSPACE}"]){
-                sh 'python -m pip install django==1.11 --user'
-                sh 'python -m pip install -r testing-requirements.txt --user'
+                sh 'python3 -m pip install django==1.11 --user'
+                sh 'python3 -m pip install -r testing-requirements.txt --user'
                 }
               }
             }
@@ -29,7 +28,7 @@ pipeline {
            
             steps{
                 withEnv(["HOME=${env.WORKSPACE}"]){ 
-                sh 'python manage.py makemigrations && python manage.py migrate'
+                sh 'python3 manage.py makemigrations && python manage.py migrate'
                 }
                  }
             }
@@ -41,7 +40,7 @@ pipeline {
                 {
                      sh 'pip list'
                      sh 'which pip'
-                     sh 'which python'
+                     sh 'which python3'
                 }
             }
         }
@@ -51,8 +50,8 @@ pipeline {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"])
                 {
-                sh 'python manage.py test'
-                sh 'python -m pytest -s --cov=. --cov-report=html'
+                sh 'python3 manage.py test'
+                sh 'python3 -m pytest -s --cov=. --cov-report=html'
                 }
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/django_line/htmlcov', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
                 }

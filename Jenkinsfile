@@ -58,20 +58,19 @@ pipeline {
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/django_pipe/htmlcov', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
                 }
             }
-        try{
         stage('code quality') {
                 steps {
                 withEnv(["HOME=${env.WORKSPACE}"])
                 {
-                sh 'ls'
-                sh 'pylint manage.py'
-                currentBuild.result = 'SUCCESS'
+                    try{
+                        sh 'ls'
+                        sh 'pylint manage.py'
+                    }catch (Exception e) {
+                        currentBuild.result = "FAILURE"
+                        err = e
+                    }
                 }
                 }
-        }
-        }catch(Exception e) {
-            // Do something with the exception 
-            currentBuild.result = 'SUCCESS'
         }
     }
 }

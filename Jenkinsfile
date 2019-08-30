@@ -61,8 +61,8 @@ pipeline {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"])
                 {
-                sh 'pylint manage.py'
                 sh 'ls'
+                sh 'pylint manage.py'
                 }
             }
         }

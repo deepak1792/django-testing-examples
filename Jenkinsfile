@@ -59,6 +59,13 @@ pipeline {
                 }
             }
         
+         stage ('Publish Report') {
+
+            steps {
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/django_pipe/htmlcov', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
+                }
+            }
+        
         stage('code quality') {
                 steps {
                     script{

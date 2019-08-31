@@ -19,6 +19,7 @@ pipeline {
                 sh 'python3 -m pip install django==1.11 --user'
                 sh 'python3 -m pip install pylint --user'
                 sh 'python3 -m pip install pylint-django --user'
+                sh 'python3 -m pip install pdoc'
                 sh 'python3 -m pip install -r testing-requirements.txt --user'
                 }
               }
@@ -56,6 +57,25 @@ pipeline {
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/django_pipe/htmlcov', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
                 }
             }
+        
+        stage ('Doc') {
+           
+            steps{
+                withEnv(["HOME=${env.WORKSPACE}"]){ 
+               sh 'PYTHONPATH=. pdoc --html --html-dir docs --overwrite env.django-testing-examples'
+                }
+                post {
+                always {
+                    publishHTML target: [
+                        reportDir: 'docs/*',
+                        reportFiles: 'index.html',
+                        reportName: 'Module Documentation'
+                    ]
+                }
+            }
+                 }
+            }
+        
         stage('code quality') {
                 steps {
                     script{

@@ -65,6 +65,7 @@ pipeline {
                             withEnv(["HOME=${env.WORKSPACE}"])
                             {
                                 sh 'pylint manage.py'
+                                sh 'ls'
                                 sh 'cd myapp && pylint admin.py'
                                 sh 'pylint myapp/apps.py'
                                 sh 'pylint myapp/models.py'

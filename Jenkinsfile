@@ -58,24 +58,6 @@ pipeline {
                 }
             }
         
-        stage ('Doc') {
-           
-            steps{
-                withEnv(["HOME=${env.WORKSPACE}"]){ 
-               sh 'PYTHONPATH=. pdoc --html --html-dir docs --overwrite env.django-testing-examples'
-                }
-                post {
-                always {
-                    publishHTML target: [
-                        reportDir: 'docs/*',
-                        reportFiles: 'index.html',
-                        reportName: 'Module Documentation'
-                    ]
-                }
-            }
-                 }
-            }
-        
         stage('code quality') {
                 steps {
                     script{

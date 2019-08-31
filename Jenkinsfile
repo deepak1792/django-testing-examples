@@ -19,6 +19,7 @@ pipeline {
                 sh 'python3 -m pip install django==1.11 --user'
                 sh 'python3 -m pip install pylint --user'
                 sh 'python3 -m pip install pylint-django --user'
+                sh 'python3 -m pip install django-jenkins --user'
                 sh 'python3 -m pip install pdoc'
                 sh 'python3 -m pip install -r testing-requirements.txt --user'
                 }

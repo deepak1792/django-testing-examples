@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent { docker { image 'python:3.6' } }
+    options {
+        buildDiscarder(
+            // Only keep the 10 most recent builds
+            logRotator(numToKeepStr:'10'))
+    }
 
     stages {
        

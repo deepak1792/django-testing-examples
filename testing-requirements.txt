@@ -3,3 +3,10 @@ pytest-django
 pytest-cov
 mixer
 selenium
+pylint
+black
+bandit
+pyflakes
+nose
+coverage
+

@@ -13,7 +13,6 @@ pipeline {
                  }
             }
    
-
         stage('Initialisation') {
             steps {
                 echo "Setting up container"
@@ -40,5 +39,30 @@ pipeline {
               sh 'make black-test'
           }
         }
+
+        stage('Common security issues'){
+          steps {
+              sh 'make security-issue'
+          }
+        }
+
+        stage('Pyflakes analyzes'){
+          steps {
+              sh 'make pyflakes-analyzes'
+          }
+        }
+
+        stage('Unittest nosetest'){
+          steps {
+              sh 'make unittest-nosetest'
+          }
+        }
+
+        stage('StaticCodeAnalysis'){
+          steps {
+            sh 'make static-code-analysis'
+          }
+        }
+
       }
     }

@@ -1,0 +1,58 @@
+version: '3'
+
+networks:
+ jenkins:
+
+services:
+
+  jenkins:
+    user: root
+    image: jenkins/jenkins:2.164.3
+    networks:
+      - jenkins
+    ports:
+      - '8080:8080'
+      - '50000:50000'
+    volumes:
+      - /data/jenkins:/var/lib/jenkins
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+      - /usr/lib/x86_64-linux-gnu/libltdl.so.7:/usr/lib/x86_64-linux-gnu/libltdl.so.7
+    environment:
+      - JENKINS_HOME=/var/lib/jenkins
+      - JAVA_OPTS=-Duser.timezone=Europe/Kiev
+      - JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Dhudson.model.DirectoryBrowserSupport.CSP=\"default-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' 'unsafe-inline' data:;\""
+    logging:
+      driver: "journald"
+
+  sonarqube:
+    user: 1004:1004
+    image: sonarqube
+    ports:
+      - "9000:9000"
+    networks:
+      - jenkins
+    environment:
+      - sonar.jdbc.url=jdbc:postgresql://db:5432/sonar
+    volumes:
+      - /data/sonarqube/conf:/opt/sonarqube/conf
+      - /data/sonarqube/logs:/opt/sonarqube/logs
+      - /data/sonarqube/temp:/opt/sonarqube/temp
+      - /data/sonarqube/data:/opt/sonarqube/data
+      - /data/sonarqube/extensions:/opt/sonarqube/extensions
+      - /data/sonarqube/bundled_plugins:/opt/sonarqube/lib/bundled-plugins
+    logging:
+      driver: "journald"
+
+  db:
+    image: postgres
+    networks:
+      - jenkins
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+    volumes:
+      - /data/sonarqube/postgresql:/var/lib/postgresql
+      - /data/sonarqube/postgresql_data:/var/lib/postgresql/data
+    logging:
+      driver: "journald"
